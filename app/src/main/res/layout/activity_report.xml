@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ReportActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reporte"
+        android:gravity="center"
+        android:textSize="30sp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputlayoutDepartamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Departamento"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinputDepartamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputlayoutBien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tipo Bien:"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinputBien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Consultar"
+        android:backgroundTint="#311B92"
+        />
+
+    <ListView
+        android:id="@+id/lista"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#B71C1C"
+            app:icon="@android:drawable/ic_menu_save"
+            android:text="Exportar PDF"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0D47A1"
+            app:icon="@android:drawable/ic_dialog_email"
+            android:text="Enviar correo"
+            />
+    </LinearLayout>
+
+</LinearLayout>
