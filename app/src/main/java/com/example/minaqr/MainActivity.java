@@ -7,28 +7,34 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.minaqr.API.API;
+import com.example.minaqr.POJO.Activos;
+import com.example.minaqr.POJO.Departamentos;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonScan;
     private Button buttonReport;
+    private Button buttonInventario;
+    private Button buttonConfiguracion;
     private TextView numero;
     private SwipeRefreshLayout swipe;
 
@@ -43,10 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonScan = findViewById(R.id.buttonScan);
-        buttonReport = findViewById(R.id.buttonReport);
-        numero = findViewById(R.id.numero);
-        swipe = findViewById(R.id.swipe);
+        setUI();
 
         qrscan = new IntentIntegrator(this);
 
@@ -56,6 +59,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 aumentar();
+            }
+        });
+
+        buttonConfiguracion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ConfiguracionActivity.class);
+                startActivity(intent);
+
+
+
+
+            }
+        });
+
+        buttonInventario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListadoActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -113,22 +137,28 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Escaneo cancelado", Toast.LENGTH_LONG).show();
             } else {
                 //if qr contains data
-                Log.d("Test","Entro :)");
                 try {
                     //converting the data to json
                     //JSONObject obj = new JSONObject(result.getContents());
-                    String [] datos = result.getContents().split(", ");
+                    String [] datos = result.getContents().split("   .   ");
                     //setting values to textviews
                     //textViewName.setText(obj.getString("name"));
                     //textViewAddress.setText(obj.getString("address"));
                     String numeroInventario = datos[0];
                     String descripcion = datos[1];
-                    String departamento = datos[2];
+                    String responsable = datos[2];
+                    String departamento = datos[3];
 
                     //Toast.makeText(this, datos[1], Toast.LENGTH_SHORT).show();
                     //Toast.makeText(this, numeroInventario, Toast.LENGTH_SHORT).show();
                     //Toast.makeText(this, result.getContents(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, numeroInventario +"\n"+descripcion+"\n"+departamento, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, numeroInventario +"\n"+descripcion+"\n" + responsable +"\n" +departamento, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, DetalleActivity.class);
+                    intent.putExtra("numInventario", numeroInventario);
+                    intent.putExtra("descripcion", descripcion);
+                    intent.putExtra("responsable", responsable);
+                    intent.putExtra("departamento", departamento);
+                    startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
@@ -200,6 +230,15 @@ public class MainActivity extends AppCompatActivity {
     public void aumentar(){
         numero.setText(String.valueOf(++number));
         new Cargar().execute();
+    }
+
+    private void setUI(){
+        buttonScan = findViewById(R.id.buttonScan);
+        buttonReport = findViewById(R.id.buttonReport);
+        buttonInventario = findViewById(R.id.buttonInventario);
+        buttonConfiguracion = findViewById(R.id.buttonConfiguracion);
+        numero = findViewById(R.id.numero);
+        swipe = findViewById(R.id.swipe);
     }
 
 }

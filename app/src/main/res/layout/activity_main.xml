@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10sp"
     android:orientation="vertical"
     tools:context=".MainActivity">
     
@@ -18,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="1"
+            android:visibility="invisible"
             android:textSize="20sp"
             android:gravity="center"
             />
@@ -32,7 +34,7 @@
         android:padding="20dp"
         />
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonList"
+        android:id="@+id/buttonInventario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_list"
@@ -84,7 +86,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
+        android:visibility="gone"
         android:text="@string/button_report" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonConfiguracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/button_settings" />
 
     <LinearLayout
         android:layout_width="match_parent"

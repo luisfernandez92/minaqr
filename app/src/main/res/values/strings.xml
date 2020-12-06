@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MinaQR</string>
     <string name="button_scan">Escanear QR</string>
-    <string name="button_list">Registros</string>
+    <string name="button_list">Inventario</string>
     <string name="button_report">Reportes</string>
+    <string name="button_settings">Configuración</string>
 </resources>
